@@ -196,6 +196,36 @@ def render_layout(title: str, body: str, header_title: str | None = None) -> str
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      position: relative;
+    }}
+
+    .legend-tooltip {{
+      cursor: help;
+    }}
+
+    .legend-tooltip::after {{
+      content: attr(data-tooltip);
+      position: absolute;
+      left: 0;
+      top: calc(100% + 10px);
+      width: min(360px, 70vw);
+      padding: 11px 13px;
+      border-radius: 14px;
+      background: rgba(32, 43, 49, 0.96);
+      color: white;
+      font-size: 0.88rem;
+      line-height: 1.45;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity 140ms ease, transform 140ms ease;
+      pointer-events: none;
+      z-index: 20;
+    }}
+
+    .legend-tooltip:hover::after {{
+      opacity: 1;
+      transform: translateY(0);
     }}
 
     .inline-option {{
@@ -577,8 +607,12 @@ def render_layout(title: str, body: str, header_title: str | None = None) -> str
       <div>
         <h1>{topbar_title}</h1>
         <div class="subtitle">
-          <span class="legend-item"><span class="status-dot dot-green"></span>Nerizični</span>
-          <span class="legend-item"><span class="status-dot dot-red"></span>Rizični</span>
+          <span class="legend-item legend-tooltip" title="Pacijenti za koje je predviđeno da će biti adherentni neposredno prije početka svoje terapije." data-tooltip="Pacijenti za koje je predviđeno da će biti adherentni neposredno prije početka svoje terapije.">
+            <span class="status-dot dot-green"></span>Nerizični
+          </span>
+          <span class="legend-item legend-tooltip" title="Pacijenti za koje je predviđeno da neće biti adherentni neposredno prije početka svoje terapije." data-tooltip="Pacijenti za koje je predviđeno da neće biti adherentni neposredno prije početka svoje terapije.">
+            <span class="status-dot dot-red"></span>Rizični
+          </span>
         </div>
       </div>
     </header>
