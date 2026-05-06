@@ -372,6 +372,14 @@ def render_layout(title: str, body: str, header_title: str | None = None) -> str
       padding: 16px;
     }}
 
+    .updated-note {{
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      font-size: 0.92rem;
+      font-style: italic;
+    }}
+
     .list-panel {{
       display: grid;
       gap: 14px;
@@ -549,6 +557,58 @@ def render_layout(title: str, body: str, header_title: str | None = None) -> str
       max-height: 520px;
       object-fit: contain;
       height: auto;
+      cursor: zoom-in;
+    }}
+
+    .zoomable-graph {{
+      cursor: zoom-in;
+    }}
+
+    .graph-lightbox {{
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(15, 20, 24, 0.82);
+      z-index: 50;
+    }}
+
+    .graph-lightbox.open {{
+      display: flex;
+    }}
+
+    .graph-lightbox-inner {{
+      position: relative;
+      width: min(1100px, 96vw);
+      max-height: 92vh;
+    }}
+
+    .graph-lightbox-inner img {{
+      display: block;
+      width: 100%;
+      max-height: 92vh;
+      object-fit: contain;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+    }}
+
+    .graph-lightbox-close {{
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      width: 38px;
+      height: 38px;
+      border: 0;
+      border-radius: 999px;
+      background: white;
+      color: var(--text);
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
     }}
 
     .graph-tooltip {{
@@ -618,6 +678,42 @@ def render_layout(title: str, body: str, header_title: str | None = None) -> str
     </header>
     {body}
   </div>
+  <div class="graph-lightbox" id="graph-lightbox" aria-hidden="true">
+    <div class="graph-lightbox-inner">
+      <button type="button" class="graph-lightbox-close" id="graph-lightbox-close" aria-label="Zatvori graf">×</button>
+      <img id="graph-lightbox-image" alt="" />
+    </div>
+  </div>
+  <script>
+    const lightbox = document.getElementById("graph-lightbox");
+    const lightboxImage = document.getElementById("graph-lightbox-image");
+    const lightboxClose = document.getElementById("graph-lightbox-close");
+    document.querySelectorAll(".zoomable-graph").forEach((image) => {{
+      image.addEventListener("click", () => {{
+        lightboxImage.src = image.src;
+        lightboxImage.alt = image.alt || "Uvećani graf";
+        lightbox.classList.add("open");
+        lightbox.setAttribute("aria-hidden", "false");
+      }});
+    }});
+    const closeLightbox = () => {{
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden", "true");
+      lightboxImage.src = "";
+      lightboxImage.alt = "";
+    }};
+    lightbox.addEventListener("click", (event) => {{
+      if (event.target === lightbox) {{
+        closeLightbox();
+      }}
+    }});
+    lightboxClose.addEventListener("click", closeLightbox);
+    document.addEventListener("keydown", (event) => {{
+      if (event.key === "Escape" && lightbox.classList.contains("open")) {{
+        closeLightbox();
+      }}
+    }});
+  </script>
 </body>
 </html>
 """
@@ -667,7 +763,7 @@ def render_global_page() -> str:
             <h3>Nerizični</h3>
           </div>
           <div class="image-wrap" style="margin-top: 0;">
-            <img src="/img/adherent-global.png" alt="Globalni graf za nerizične pacijente" />
+            <img class="zoomable-graph" src="/img/adherent-global.png" alt="Globalni graf za nerizične pacijente" />
           </div>
         </article>
         <article class="global-card">
@@ -676,10 +772,11 @@ def render_global_page() -> str:
             <h3>Rizični</h3>
           </div>
           <div class="image-wrap" style="margin-top: 0;">
-            <img src="/img/non-adherent-global.png" alt="Globalni graf za rizične pacijente" />
+            <img class="zoomable-graph" src="/img/non-adherent-global.png" alt="Globalni graf za rizične pacijente" />
           </div>
         </article>
       </div>
+      <p class="updated-note">Posljednji put ažurirano: Danas u 6:25</p>
     </section>
     """
     return render_layout("Globalno", body)
@@ -745,7 +842,7 @@ def render_patient_page(patient: dict, selected_graph: str) -> str:
         </div>
       </div>
       <div class="image-wrap">
-        <img src="/img/{selected_graph}.png" alt="Graf {graph_label} za pacijenta {patient["name"]}" />
+        <img class="zoomable-graph" src="/img/{selected_graph}.png" alt="Graf {graph_label} za pacijenta {patient["name"]}" />
         {"<div class='graph-tooltip'>" + graph_hover + "</div>" if graph_hover else ""}
       </div>
     </section>
