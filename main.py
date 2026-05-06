@@ -410,7 +410,8 @@ def render_layout(title: str, body: str, header_title: str | None = None) -> str
     }}
 
     .graph-picker {{
-      max-width: 340px;
+      width: min(100%, 520px);
+      max-width: 520px;
       position: relative;
     }}
 
@@ -454,13 +455,23 @@ def render_layout(title: str, body: str, header_title: str | None = None) -> str
       top: calc(100% + 8px);
       left: 0;
       right: 0;
+      width: 100%;
+      min-width: 100%;
+      max-width: min(520px, calc(100vw - 32px));
       display: none;
       background: white;
       border: 1px solid var(--line-strong);
       border-radius: 18px;
       box-shadow: 0 18px 36px rgba(35, 48, 58, 0.12);
-      overflow: hidden;
+      max-height: min(320px, calc(100vh - 260px));
+      overflow-y: auto;
+      overflow-x: hidden;
       z-index: 10;
+    }}
+
+    .dropdown.open-up .dropdown-menu {{
+      top: auto;
+      bottom: calc(100% + 8px);
     }}
 
     .dropdown.open .dropdown-menu {{
@@ -469,7 +480,7 @@ def render_layout(title: str, body: str, header_title: str | None = None) -> str
 
     .dropdown-option {{
       width: 100%;
-      padding: 12px 14px;
+      padding: 11px 14px;
       border: 0;
       background: transparent;
       text-align: left;
@@ -481,6 +492,10 @@ def render_layout(title: str, body: str, header_title: str | None = None) -> str
       font: inherit;
       font-family: "Trebuchet MS", "Segoe UI", sans-serif;
       font-weight: 700;
+      line-height: 1.2;
+      white-space: normal;
+      word-break: break-word;
+      text-wrap: balance;
     }}
 
     .dropdown-option:hover {{
@@ -542,6 +557,16 @@ def render_layout(title: str, body: str, header_title: str | None = None) -> str
 
       .graph-picker {{
         max-width: 100%;
+      }}
+
+      .dropdown-menu {{
+        max-height: min(240px, calc(100vh - 220px));
+        max-width: calc(100vw - 28px);
+      }}
+
+      .dropdown-option {{
+        padding: 10px 12px;
+        font-size: 0.92rem;
       }}
     }}
   </style>
@@ -694,8 +719,21 @@ def render_patient_page(patient: dict, selected_graph: str) -> str:
       const dropdown = document.getElementById("graph-dropdown");
       const trigger = document.getElementById("graph-trigger");
       const menu = document.getElementById("graph-menu");
+      const updateDropdownPosition = () => {{
+        const rect = dropdown.getBoundingClientRect();
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+        const needed = Math.min(menu.scrollHeight, window.innerHeight - 220, 320);
+        dropdown.classList.toggle("open-up", spaceBelow < needed && spaceAbove > spaceBelow);
+      }};
       trigger.addEventListener("click", () => {{
+        const willOpen = !dropdown.classList.contains("open");
         dropdown.classList.toggle("open");
+        if (willOpen) {{
+          updateDropdownPosition();
+        }} else {{
+          dropdown.classList.remove("open-up");
+        }}
       }});
       menu.querySelectorAll("[data-graph]").forEach((button) => {{
         button.addEventListener("click", () => {{
@@ -707,6 +745,12 @@ def render_patient_page(patient: dict, selected_graph: str) -> str:
       document.addEventListener("click", (event) => {{
         if (!dropdown.contains(event.target)) {{
           dropdown.classList.remove("open");
+          dropdown.classList.remove("open-up");
+        }}
+      }});
+      window.addEventListener("resize", () => {{
+        if (dropdown.classList.contains("open")) {{
+          updateDropdownPosition();
         }}
       }});
     </script>
