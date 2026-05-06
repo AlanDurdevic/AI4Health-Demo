@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "patient_name": "Ana Kovac",
+    "appointment_date": "2026-05-06",
+    "status": "Follow-up",
+    "notes": "Reports better sleep and reduced headaches.",
+    "created_at": "2026-05-05T21:02:46"
+  },
+  {
+    "id": 2,
+    "patient_name": "Marko Babic",
+    "appointment_date": "2026-05-07",
+    "status": "New intake",
+    "notes": "Initial consultation scheduled for nutrition plan review.",
+    "created_at": "2026-05-05T21:02:46"
+  }
+]

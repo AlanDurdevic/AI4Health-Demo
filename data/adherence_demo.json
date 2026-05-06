@@ -1,0 +1,191 @@
+{
+  "patients": [
+    {
+      "id": 1,
+      "name": "Marija Kovac",
+      "cohort": "Biguanides",
+      "status": "Adherent",
+      "mpr": 91,
+      "last_visit": "2026-05-02",
+      "notes": "On-time refill pattern in the last three months.",
+      "created_at": "2026-05-05T21:11:23"
+    },
+    {
+      "id": 2,
+      "name": "Ivan Babic",
+      "cohort": "Biguanides",
+      "status": "Non-adherent",
+      "mpr": 58,
+      "last_visit": "2026-04-20",
+      "notes": "Missed refill window and needs outreach.",
+      "created_at": "2026-05-05T21:11:23"
+    },
+    {
+      "id": 3,
+      "name": "Petra Novak",
+      "cohort": "Biguanide + DPP4 Inhibitor Combos",
+      "status": "Adherent",
+      "mpr": 88,
+      "last_visit": "2026-05-03",
+      "notes": "Stable adherence after medication adjustment.",
+      "created_at": "2026-05-05T21:11:23"
+    },
+    {
+      "id": 4,
+      "name": "Luka Horvat",
+      "cohort": "Biguanide + DPP4 Inhibitor Combos",
+      "status": "Non-adherent",
+      "mpr": 61,
+      "last_visit": "2026-04-18",
+      "notes": "Skipped doses during travel, follow-up planned.",
+      "created_at": "2026-05-05T21:11:23"
+    },
+    {
+      "id": 5,
+      "name": "Ana Juric",
+      "cohort": "DPP4 Inhibitors",
+      "status": "Adherent",
+      "mpr": 93,
+      "last_visit": "2026-05-04",
+      "notes": "Good refill consistency and self-reported compliance.",
+      "created_at": "2026-05-05T21:11:23"
+    },
+    {
+      "id": 6,
+      "name": "Tomislav Marin",
+      "cohort": "DPP4 Inhibitors",
+      "status": "Non-adherent",
+      "mpr": 54,
+      "last_visit": "2026-04-12",
+      "notes": "Needs counseling due to irregular therapy use.",
+      "created_at": "2026-05-05T21:11:23"
+    },
+    {
+      "id": 7,
+      "name": "Ema Radic",
+      "cohort": "Thiazolidinediones",
+      "status": "Adherent",
+      "mpr": 86,
+      "last_visit": "2026-05-01",
+      "notes": "Refill adherence improved after reminder calls.",
+      "created_at": "2026-05-05T21:11:23"
+    },
+    {
+      "id": 8,
+      "name": "Karlo Simic",
+      "cohort": "Thiazolidinediones",
+      "status": "Non-adherent",
+      "mpr": 49,
+      "last_visit": "2026-04-09",
+      "notes": "High-risk patient flagged for immediate intervention.",
+      "created_at": "2026-05-05T21:11:23"
+    }
+  ],
+  "trends": [
+    {
+      "date": "2026-01",
+      "cohorts": {
+        "Biguanides": {
+          "adherent": 73,
+          "non_adherent": 27
+        },
+        "Biguanide + DPP4 Inhibitor Combos": {
+          "adherent": 61,
+          "non_adherent": 39
+        },
+        "DPP4 Inhibitors": {
+          "adherent": 64,
+          "non_adherent": 36
+        },
+        "Thiazolidinediones": {
+          "adherent": 66,
+          "non_adherent": 34
+        }
+      }
+    },
+    {
+      "date": "2026-02",
+      "cohorts": {
+        "Biguanides": {
+          "adherent": 71,
+          "non_adherent": 29
+        },
+        "Biguanide + DPP4 Inhibitor Combos": {
+          "adherent": 58,
+          "non_adherent": 42
+        },
+        "DPP4 Inhibitors": {
+          "adherent": 63,
+          "non_adherent": 37
+        },
+        "Thiazolidinediones": {
+          "adherent": 65,
+          "non_adherent": 35
+        }
+      }
+    },
+    {
+      "date": "2026-03",
+      "cohorts": {
+        "Biguanides": {
+          "adherent": 74,
+          "non_adherent": 26
+        },
+        "Biguanide + DPP4 Inhibitor Combos": {
+          "adherent": 56,
+          "non_adherent": 44
+        },
+        "DPP4 Inhibitors": {
+          "adherent": 62,
+          "non_adherent": 38
+        },
+        "Thiazolidinediones": {
+          "adherent": 67,
+          "non_adherent": 33
+        }
+      }
+    },
+    {
+      "date": "2026-04",
+      "cohorts": {
+        "Biguanides": {
+          "adherent": 76,
+          "non_adherent": 24
+        },
+        "Biguanide + DPP4 Inhibitor Combos": {
+          "adherent": 54,
+          "non_adherent": 46
+        },
+        "DPP4 Inhibitors": {
+          "adherent": 61,
+          "non_adherent": 39
+        },
+        "Thiazolidinediones": {
+          "adherent": 68,
+          "non_adherent": 32
+        }
+      }
+    },
+    {
+      "date": "2026-05",
+      "cohorts": {
+        "Biguanides": {
+          "adherent": 77,
+          "non_adherent": 23
+        },
+        "Biguanide + DPP4 Inhibitor Combos": {
+          "adherent": 52,
+          "non_adherent": 48
+        },
+        "DPP4 Inhibitors": {
+          "adherent": 60,
+          "non_adherent": 40
+        },
+        "Thiazolidinediones": {
+          "adherent": 69,
+          "non_adherent": 31
+        }
+      }
+    }
+  ]
+}
