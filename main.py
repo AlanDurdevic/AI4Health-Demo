@@ -61,6 +61,13 @@ GRAPH_DOT_CLASSES = {
 GRAPH_HOVER_TEXT = {
     "thiazolidinediones": "Model povećava vjerojatnost neadherencije jer pacijent pokazuje lošiji prethodni obrazac pokrivenosti terapijom, veće razmake između podizanja lijekova te nepovoljnije kliničke signale poput glukoze i HbA1c-a, što zajedno upućuje na veći rizik neredovitog uzimanja terapije.",
 }
+GRAPH_IN_USE = {
+    "all",
+    "biguanides",
+    "biguanide-dpp4-combos",
+    "dpp4-inhibitors",
+    "thiazolidinediones",
+}
 PATIENTS = [
     {"id": "ana-kovac", "name": "Ana Kovač", "status": "Neadherentan"},
     {"id": "marko-babic", "name": "Marko Babić", "status": "Neadherentan"},
@@ -550,6 +557,7 @@ def render_layout(title: str, body: str, header_title: str | None = None) -> str
       display: flex;
       align-items: center;
       gap: 10px;
+      justify-content: space-between;
       color: var(--text);
       font: inherit;
       font-family: "Trebuchet MS", "Segoe UI", sans-serif;
@@ -558,6 +566,25 @@ def render_layout(title: str, body: str, header_title: str | None = None) -> str
       white-space: normal;
       word-break: break-word;
       text-wrap: balance;
+    }}
+
+    .dropdown-option-left {{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }}
+
+    .med-flag {{
+      flex: 0 0 auto;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--warn-soft);
+      color: var(--warn);
+      font-size: 0.72rem;
+      font-weight: 700;
+      white-space: nowrap;
+      letter-spacing: 0.01em;
     }}
 
     .dropdown-option:hover {{
@@ -831,8 +858,11 @@ def render_patient_page(patient: dict, selected_graph: str) -> str:
     graph_buttons = "".join(
         f'''
         <button type="button" class="dropdown-option" data-graph="{key}">
-          <span class="status-dot {GRAPH_DOT_CLASSES[key]}"></span>
-          <span>{label}</span>
+          <span class="dropdown-option-left">
+            <span class="status-dot {GRAPH_DOT_CLASSES[key]}"></span>
+            <span>{label}</span>
+          </span>
+          {"<span class='med-flag'>Ne koristi</span>" if key not in GRAPH_IN_USE else ""}
         </button>
         '''
         for key, label in GRAPH_LABELS.items()
