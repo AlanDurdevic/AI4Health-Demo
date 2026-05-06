@@ -7,8 +7,8 @@ COPY img /app/img
 COPY data /app/data
 
 ENV HOST=0.0.0.0
-ENV PORT=8000
+ENV PORT=10000
 
-EXPOSE 8000
+EXPOSE 10000
 
 CMD ["python3", "main.py"]

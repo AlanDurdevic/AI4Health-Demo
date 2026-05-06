@@ -7,7 +7,7 @@ from urllib.parse import parse_qs
 
 BASE_DIR = Path(__file__).resolve().parent
 HOST = os.getenv("HOST", "127.0.0.1")
-PORT = int(os.getenv("PORT", "8000"))
+PORT = int(os.getenv("PORT", "10000"))
 PATIENT_GRAPH_FILES = {
     "biguanides": BASE_DIR / "img" / "biguanides.png",
     "biguanide-dpp4-combos": BASE_DIR / "img" / "biguanide+dpp4_inhibitor_combos.png",
