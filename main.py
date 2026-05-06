@@ -31,7 +31,7 @@ GRAPH_DOT_CLASSES = {
     "all": "dot-red",
     "biguanides": "dot-red",
     "biguanide-dpp4-combos": "dot-red",
-    "dpp4-inhibitors": "dot-green",
+    "dpp4-inhibitors": "dot-red",
     "thiazolidinediones": "dot-red",
 }
 GRAPH_HOVER_TEXT = {
